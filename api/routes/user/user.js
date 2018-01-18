@@ -12,20 +12,23 @@ router.put('/update', function(req,res){
     var address = req.body.address;
     var password = hash.hashPassword(req.body.password);
 
-    if(!firstname){ firstname = req.user.firstname;}
-    if(!lastname){ lastname = req.user.lastname;}
-    if(!address){ lastname = req.user.address;}
-    if(!password){password = req.user.password;}
+    User.findOne({login: req.user.login, deleted: false}).then(function(user){
+        if(!firstname){ firstname = user.firstname;}
+        if(!lastname){ lastname = user.lastname;}
+        if(!address){ lastname = user.address;}
+        if(!password){password = user.password;}
 
-    User.find({login: req.user.login, deleted: false}).update({
-        $set: {
-            firstname: firstname,
-            lastname: lastname,
-            password: password
-        }
-    }, function(err){
-        if(err){res.json({success: false, message: 'Error'});}
-        else{res.json({success: true, message: 'Account update !'});}
+        user.update({
+            $set: {
+                firstname: firstname,
+                lastname: lastname,
+                address: address,
+                password: password
+            }
+        }, function(err){
+            if(err){res.json({success: false, message: 'Error'});}
+            else{res.json({success: true, message: 'Account update !'});}
+        });
     });
 });
 
