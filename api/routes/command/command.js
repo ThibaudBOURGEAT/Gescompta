@@ -17,18 +17,29 @@ router.post('/addProduct', function(req,res){
     });
 });
 
-router.get('/', function(req,res){
-    Command.findOne({_id: req.user.command[0]}).then(function(command){
-        
+router.get('/getProducts', function(req,res){
+    Command.findOne({_id: req.user.command[0]}).populate('products')
+    .then(function(command){
+        res.json(command.products);
+    }).catch(function(err){
+        if(err){res.json({success: false, message: "Can't return products."});}
     });
 });
 
-router.post('/', function(req,res){
-    const newCommand = new Command({user: req.user._id});
-    newCommand.save(function(err){
-        if(err) throw err;
-        res.json({success: true, message: 'Account created !'});
+router.post('/removeProduct', function(req,res){
+    Command.findOne({_id: req.user.command[0]}).then(function(command){
+        Product.findOne({_id: req.body.id}).then(function(product){
+            product.commands.pull(command._id);
+            product.save(function(){
+                command.products.pull(product._id);
+                command.save(function(err){
+                    if(err){res.json({success: false, message: 'Error'});}
+                    else{res.json({success: true, message: 'Product remove to command !'});}
+                });
+            });
+        });
     });
 });
+
 
 module.exports = router;

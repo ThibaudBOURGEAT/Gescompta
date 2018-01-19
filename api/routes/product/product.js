@@ -7,6 +7,12 @@ router.get('/:id', function(req,res){
     });
 });
 
+router.get('/getAll', function(req,res){
+    Product.find().then(function(products){
+        res.json(products);
+    });
+});
+
 router.post('/create', function(req,res){
     const newProduct = new Product({
         wording: req.body.wording,
