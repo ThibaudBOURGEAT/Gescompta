@@ -1,6 +1,5 @@
 const router = require('express').Router();
 const Product = require('../../models/Product');
-const Command = require('../../models/Command');
 
 router.get('/:id', function(req,res){
     Product.findOne({_id: req.params.id}).then(function(product){
@@ -59,4 +58,6 @@ router.delete('/softdelete', function(req, res) {
             }
         })
 });
+
+
 module.exports = router;

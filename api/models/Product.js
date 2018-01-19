@@ -20,7 +20,7 @@ const product_schema = new mongoose.Schema({
         required: true
     },
     commands: [{
-        type: mongoose.Schema.Types.ObjectId,
+        type: mongoose.Schema.ObjectId,
         ref: 'Command',
         childPath: "product"
     }],

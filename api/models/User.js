@@ -26,13 +26,13 @@ const user_schema = new mongoose.Schema({
         required: true
     },
     command: [{
-        type: mongoose.Schema.Types.ObjectId,
+        type: mongoose.Schema.ObjectId,
         ref: 'Command'
     }],
     deleted: {
         type: Boolean,
         default: false,
     }
-});
+}, { usePushEach: true });
 
 module.exports = mongoose.model('User', user_schema);
