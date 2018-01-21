@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const Product = require('../../models/Product');
 
-router.get('/:id', function(req,res){
+router.get('/getProduct/:id', function(req,res){
     Product.findOne({_id: req.params.id}).then(function(product){
         res.json(product);
     });
