@@ -1,0 +1,24 @@
+<section>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 mx-auto">
+          <h3>Tous nos produits :</h3>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 mx-auto">
+         <ul><li *ngFor="let product of products;" [routerLinkActiveOptions]="{exact:true}" routerLinkActive="active">
+             <a routerLink="/product/{{product._id}}"><h4> {{product.wording}} </h4></a>
+             <p class="lead">{{product.description}}</p>
+             <p class="lead">{{product.price}}€</p>
+        </li></ul>
+      </div>
+    </div>
+  </div>
+</section>
+<div class="espace"></div>

@@ -1,0 +1,14 @@
+<section *ngIf="product">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 mx-auto">
+          <h4> {{product.wording}} </h4>
+          <p class="lead">{{product.description}}</p>
+          <p class="lead">{{product.price}}€</p>
+          <a (click)="addProductToCommand()" class="btn btn-primary text-white">Ajouter à la commande</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="espace"></div>
